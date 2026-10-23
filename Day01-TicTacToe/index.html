@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10141c">
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <main class="game-container">
+        <header class="game-header">
+            <h1>Tic-Tac-Toe</h1>
+            <p>A little strategy goes a long way.</p>
+        </header>
+
+        <section class="settings-panel">
+            <div class="setting-group">
+                <label>GAME MODE</label>
+                <div class="choice-group" id="mode-options">
+                    <button type="button" class="choice active"
+                            data-mode="pvp" aria-pressed="true">
+                        Player vs Player
+                    </button>
+                    <button type="button" class="choice"
+                            data-mode="computer" aria-pressed="false">
+                        Player vs AI
+                    </button>
+                </div>
+            </div>
+
+            <div class="setting-group" id="difficulty-group" hidden>
+                <label>AI DIFFICULTY</label>
+                <div class="choice-group difficulty-options">
+                    <button type="button" class="choice"
+                            data-difficulty="easy" aria-pressed="false">
+                        Easy
+                    </button>
+                    <button type="button" class="choice active"
+                            data-difficulty="medium" aria-pressed="true">
+                        Medium
+                    </button>
+                    <button type="button" class="choice"
+                            data-difficulty="hard" aria-pressed="false">
+                        Hard
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="scoreboard" aria-label="Scores">
+            <div class="player-card active" id="player-x">
+                <span class="player-symbol x-symbol">X</span>
+                <span class="player-label" id="label-x">PLAYER X</span>
+                <span class="score-value" id="score-x">0</span>
+                <span class="score-caption">0 WINS · 0 LOSSES</span>
+            </div>
+
+            <div class="player-card" id="player-o">
+                <span class="player-symbol o-symbol">O</span>
+                <span class="player-label" id="label-o">PLAYER O</span>
+                <span class="score-value" id="score-o">0</span>
+                <span class="score-caption">0 WINS · 0 LOSSES</span>
+            </div>
+        </section>
+
+        <section class="stats-row">
+            <div class="stat-card">
+                <span>Moves</span>
+                <strong id="move-count">0 / 9</strong>
+            </div>
+            <div class="stat-card">
+                <span>Draws</span>
+                <strong id="draw-count">0</strong>
+            </div>
+        </section>
+
+        <p id="status" class="status" role="status" aria-live="polite">
+            Loading game...
+        </p>
+
+        <section id="board" class="board" aria-label="Game board">
+            <button class="cell" data-position="1" aria-label="Position 1"></button>
+            <button class="cell" data-position="2" aria-label="Position 2"></button>
+            <button class="cell" data-position="3" aria-label="Position 3"></button>
+            <button class="cell" data-position="4" aria-label="Position 4"></button>
+            <button class="cell" data-position="5" aria-label="Position 5"></button>
+            <button class="cell" data-position="6" aria-label="Position 6"></button>
+            <button class="cell" data-position="7" aria-label="Position 7"></button>
+            <button class="cell" data-position="8" aria-label="Position 8"></button>
+            <button class="cell" data-position="9" aria-label="Position 9"></button>
+        </section>
+
+        <p id="message" class="message" role="alert" aria-live="assertive"></p>
+
+        <section class="controls">
+            <button type="button" id="undo-button" class="secondary-button" disabled>
+                ↶ Undo
+            </button>
+            <button type="button" id="sound-button" class="secondary-button"
+                    aria-pressed="false">
+                Sound: Off
+            </button>
+            <button type="button" id="reset-button" class="reset-button">
+                New Game
+            </button>
+        </section>
+
+        <section class="result-panel" id="result-panel" hidden>
+            <span id="result-icon" aria-hidden="true">🏆</span>
+            <h2 id="result-title">Game Over</h2>
+            <p id="result-description"></p>
+        </section>
+
+        <footer>Made with Python, Flask and JavaScript</footer>
+    </main>
+</body>
+</html>
