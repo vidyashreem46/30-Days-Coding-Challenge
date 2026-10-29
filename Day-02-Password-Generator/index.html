@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f6f2">
+    <meta
+        name="description"
+        content="Create secure random passwords with KeyCraft."
+    >
+
+    <title>KeyCraft | Password Generator</title>
+
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <a class="brand" href="/" aria-label="KeyCraft home">
+            <span class="brand-icon">K</span>
+            <span>KeyCraft</span>
+        </a>
+
+        <span class="secure-label">
+            <span class="status-dot"></span>
+            Secure generation
+        </span>
+    </header>
+
+    <main class="page">
+        <section class="intro">
+            <p class="eyebrow">YOUR DIGITAL SECURITY TOOLKIT</p>
+
+            <h1>Create stronger passwords<span>.</span></h1>
+
+            <p class="intro-text">
+                Generate unique passwords for your digital life.
+                Simple, secure, and under your control.
+            </p>
+        </section>
+
+        <section class="generator-card">
+            <div class="card-heading">
+                <div>
+                    <p class="section-label">PASSWORD SETTINGS</p>
+                    <h2>Customize your password</h2>
+                </div>
+
+                <span class="lock-icon" aria-hidden="true">🔒</span>
+            </div>
+
+            <form id="generatorForm">
+                <div class="length-heading">
+                    <label for="length">Password length</label>
+                    <output id="lengthValue" for="length">16</output>
+                </div>
+
+                <input
+                    type="range"
+                    id="length"
+                    name="length"
+                    min="8"
+                    max="128"
+                    value="16"
+                >
+
+                <div class="range-labels">
+                    <span>8 characters</span>
+                    <span>128 characters</span>
+                </div>
+
+                <div class="options-heading">
+                    <h3>Character types</h3>
+                    <span>Choose at least one</span>
+                </div>
+
+                <div class="options-grid">
+                    <label class="option">
+                        <input type="checkbox" id="use_upper" checked>
+                        <span class="custom-check" aria-hidden="true"></span>
+                        <span class="option-copy">
+                            <strong>Uppercase</strong>
+                            <small>A–Z</small>
+                        </span>
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" id="use_lower" checked>
+                        <span class="custom-check" aria-hidden="true"></span>
+                        <span class="option-copy">
+                            <strong>Lowercase</strong>
+                            <small>a–z</small>
+                        </span>
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" id="use_digits" checked>
+                        <span class="custom-check" aria-hidden="true"></span>
+                        <span class="option-copy">
+                            <strong>Numbers</strong>
+                            <small>0–9</small>
+                        </span>
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" id="use_symbols" checked>
+                        <span class="custom-check" aria-hidden="true"></span>
+                        <span class="option-copy">
+                            <strong>Symbols</strong>
+                            <small>! @ # $ %</small>
+                        </span>
+                    </label>
+                </div>
+
+                <label class="toggle-option">
+                    <input type="checkbox" id="exclude_confusing">
+
+                    <span>
+                        <strong>Exclude confusing characters</strong>
+                        <small>Skip O, 0, I and l</small>
+                    </span>
+                </label>
+
+                <div class="count-field">
+                    <label for="count">Number of passwords</label>
+
+                    <select id="count" name="count">
+                        <option value="1">1 password</option>
+                        <option value="2">2 passwords</option>
+                        <option value="3">3 passwords</option>
+                        <option value="5">5 passwords</option>
+                        <option value="10">10 passwords</option>
+                    </select>
+                </div>
+
+                <p
+                    id="message"
+                    class="message"
+                    role="alert"
+                    aria-live="polite"
+                ></p>
+
+                <button
+                    type="submit"
+                    id="generateBtn"
+                    class="generate-btn"
+                >
+                    ✳ Generate passwords →
+                </button>
+            </form>
+
+            <section
+                id="resultsSection"
+                class="results"
+                aria-labelledby="resultsTitle"
+                hidden
+            >
+                <div class="results-heading">
+                    <div>
+                        <p class="section-label">YOUR RESULTS</p>
+                        <h2 id="resultsTitle">Generated passwords</h2>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="regenerateBtn"
+                        class="text-btn"
+                    >
+                        Regenerate ↻
+                    </button>
+                </div>
+
+                <div class="strength-panel">
+                    <div class="strength-heading">
+                        <span>Estimated strength</span>
+                        <strong id="strengthLabel">—</strong>
+                    </div>
+
+                    <div
+                        class="strength-track"
+                        role="progressbar"
+                        aria-label="Estimated password strength"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="0"
+                        id="strengthTrack"
+                    >
+                        <div id="strengthBar" class="strength-bar"></div>
+                    </div>
+
+                    <p id="entropyText" class="entropy-text"></p>
+
+                    <p class="strength-note">
+                        This is an estimate for randomly generated
+                        passwords, not a guarantee of account security.
+                    </p>
+                </div>
+
+                <div id="passwordList" class="password-list"></div>
+
+                <p class="privacy-note">
+                    Password history is kept temporarily in this page.
+                    Refreshing or closing the page clears it.
+                </p>
+            </section>
+        </section>
+
+        <section
+            id="historySection"
+            class="history-card"
+            aria-labelledby="historyTitle"
+            hidden
+        >
+            <div class="results-heading">
+                <div>
+                    <p class="section-label">HISTORY</p>
+                    <h2 id="historyTitle">Password History</h2>
+                </div>
+
+                <button
+                    type="button"
+                    id="clearHistoryBtn"
+                    class="text-btn"
+                >
+                    Clear history
+                </button>
+            </div>
+
+            <p class="history-description">
+                Your recently generated passwords
+            </p>
+
+            <div id="historyList" class="password-list"></div>
+        </section>
+
+        <footer>
+            <p>KeyCraft · Python, Flask, HTML, CSS &amp; JavaScript</p>
+        </footer>
+    </main>
+</body>
+</html>
